@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>MDIA 2294</title>
+	
+	<style>
+	    thead{
+	        font-weight:bold;
+	    }
+	    
+	    td{
+	        padding-left:5px;
+	        padding-right:5px;	        
+	    }
+	    
+	    td.sub-total{
+	        text-align:right;	        
+	    }
+	</style>
+</head>
+<body>
+	<h1>MDIA 2294: ACME Corp Invoice</h1>
+	
+	<table>
+	    <thead>
+	        <tr>
+	            <td>ITEM</td>
+	            <td>DESCRIPTION</td>
+	            <td>QTY</td>
+	            <td>PRICE</td>
+	            <td>LINE TOTAL</td>
+	        </tr>
+	    </thead>
+	    <tbody>
+	        <tr>
+	            <td>1</td>
+	            <td><input id="line-1-description" type="text" size="40" value="Anvil" /></td>
+	            <td><input id="line-1-quantity" type="text" size="3" value="5" /></td>
+	            <td><input id="line-1-price" type="text" size="6" value="35.00" /></td>
+	            <td class="sub-total"><span id="line-1"></span></td>
+	        </tr>
+	        <tr>
+	            <td>2</td>
+	            <td><input id="line-2-description" type="text" size="40" value="Rocket Skates (each)" /></td>
+	            <td><input id="line-2-quantity" type="text" size="3" value="2" /></td>
+	            <td><input id="line-2-price" type="text" size="6" value="24.99" /></td>
+	            <td class="sub-total"><span id="line-2"></span></td>
+	        </tr>
+	        <tr>
+	            <td>3</td>
+	            <td><input id="line-3-description" type="text" size="40" value="Giant Magnet" /></td>
+	            <td><input id="line-3-quantity" type="text" size="3" value="1" /></td>
+	            <td><input id="line-3-price" type="text" size="6" value="125.50" /></td>
+	            <td class="sub-total"><span id="line-3"></span></td>
+	        </tr>
+	        <tr>
+	            <td>4</td>
+	            <td><input id="line-4-description" type="text" size="40" value="Ball bearings" /></td>
+	            <td><input id="line-4-quantity" type="text" size="3" value="1000" /></td>
+	            <td><input id="line-4-price" type="text" size="6" value="0.25" /></td>
+	            <td class="sub-total"><span id="line-4"></span></td>
+	        </tr>
+	        <tr>
+	            <td>5</td>
+	            <td><input id="line-5-description" type="text" size="40" value="Portable holes" /></td>
+	            <td><input id="line-5-quantity" type="text" size="3" value="12" /></td>
+	            <td><input id="line-5-price" type="text" size="6" value="15.25" /></td>
+	            <td class="sub-total"><span id="line-5"></span></td>
+	        </tr>
+	    </tbody>
+	    <tfoot>
+	        <tr>
+	            <td colspan="4" style="text-align:right;">SUB TOTAL</td>  
+	            <td class="sub-total"><span id="sub-total"></span></td>	        
+	        </tr>
+	        <tr>
+	            <td colspan="4" style="text-align:right;">DISCOUNT</td>  
+	            <td class="sub-total"><span id="discount"></span></td>	        
+	        </tr>
+	        <tr>
+	            <td colspan="4" style="text-align:right;">TAX</td>  
+	            <td class="sub-total"><span id="tax"></span></td>	        
+	        </tr>
+	        <tr>
+	            <td colspan="4" style="text-align:right;">TOTAL</td>  
+	            <td class="sub-total" style="border-top:solid black 1px"><span id="Total"></span></td>	        
+	        </tr>
+	    </tfoot>	    
+	</table>
+	
+	<div><button id="calculate">Calculate</button></div>
+	<div>NOTE: discounts of 10% are given to orders over $250</div>
+
+	<script>
+		calc_btn = document.querySelector("#calculate");
+		//Setting up to execute the result when users click the calculate button
+
+
+	    function calculate() {
+           
+			let sub_total = 0;
+			let discount = 0;
+			let tax = 0;
+			let total = 0;
+			//This part initialize the variables to store different values
+
+			//Anvil
+			const quantity1 = document.querySelector("#line-1-quantity").value;
+			//'quantity1' is set up by a developer.
+			//It takes the value of an input element with the ID'line-1-quntity'.
+			//It is stored in a variable called 'quantity1'.
+			//When this code is executed, the current value of that input element is stored in 'quantity1'
+			const price1 = document.querySelector("#line-1-price").value;
+			//this one is same as 'quantity1'.
+			//ID'line-1-price' takes and saves the value of 'line-1 price' in the 'price1' variable.
+			const lineTotal1 = quantity1 *price1;
+			//I found the code still works without using 'const', but I used const because it doesn't need to reallocation for variables
+			
+			document.querySelector("#line-1").innerHTML = '$' + lineTotal1.toFixed(2);
+			sub_total +=lineTotal1;
+			//Find the element with id 'line-1' in the HTML document.
+			//State the lineTotal1 value to the second decimal place, and combine it with the $string.
+			//Set this as 'line-1' content,
+			//add sub_total +=lineTotal1 to the current 'sub_total'
+
+
+			//Rocket Skates (each)
+			const quantity2 = document.querySelector("#line-2-quantity").value;
+			const price2 = document.querySelector("#line-2-price").value;
+			const lineTotal2 = quantity2 * price2;
+			document.querySelector("#line-2").innerHTML = '$' + lineTotal2.toFixed(2);
+			sub_total +=lineTotal2;
+			//same comment as Anvil, only differences are selectors.
+
+
+			//Giant Magnet
+			const quantity3 = document.querySelector("#line-3-quantity").value;
+			const price3 = document.querySelector("#line-3-price").value;
+			const lineTotal3 = quantity3 * price3;
+			document.querySelector("#line-3").innerHTML = '$' + lineTotal3.toFixed(2);
+			sub_total +=lineTotal3;
+			//same comment as Anvil, only differences are selectors.
+
+
+			//Ball bearings
+			const quantity4 = document.querySelector("#line-4-quantity").value;
+			const price4 = document.querySelector("#line-4-price").value;
+			const lineTotal4 = quantity4 * price4;
+			document.querySelector("#line-4").innerHTML = '$' + lineTotal4.toFixed(2);
+			sub_total +=lineTotal4;
+			//same comment as Anvil, only differences are selectors.
+
+
+			//Portable holes
+			const quantity5 = document.querySelector("#line-5-quantity").value;
+			const price5 = document.querySelector("#line-5-price").value;
+			const lineTotal5 = quantity5 * price5;
+			document.querySelector("#line-5").innerHTML = '$' + lineTotal5.toFixed(2);
+			sub_total +=lineTotal5;
+			//same comment as Anvil, only differences are selectors.
+
+
+			//sub total
+			document.querySelector("#sub-total").innerHTML = '$' + sub_total.toFixed(2);
+			//This code finds an element with ID:sub_total in the HTML document.
+			//Set up its value of the sub_total variable with '$'string and 2nd decimal.
+			//It shows the amount of money the current sum in the 'sub_total'element.
+
+
+			//calculate discount with ternary 
+			discount = sub_total > 250 ? sub_total *0.1 : 0;
+			//Ternary : [condition]?[the value when the codition is true]:[the value when the condition is false]
+			document.querySelector("#discount").innerHTML = '$' + discount.toFixed(2);
+			//This code finds an element with id:discount in the HTML document.
+			//set up its value of the discount variable with '$'string and 2nd decimal.
+			//it shows a current amount of discount in the 'discount'element.
+
+
+
+			tax = (sub_total - discount) *0.12;
+			document.querySelector("#tax").innerHTML = '$' + tax.toFixed(2);
+			//Calculate the tax, and set the value with id:tax in the HTML document.
+			//Calculate 12%tax from the total amount which is discount is applied already.
+			//State with '$'string and 2nd decimal in the 'tax'element.
+			//why minus the amount of discount: It makes sense to tax after subtracting the discounted price. (avoiding a confusion)
+			//():for substraction first before mulitflying 12%
+
+			total = sub_total-discount+tax;
+			//in General, taxes are charged on the final payment.
+			//final payment is discount substracted from the sub_total.
+
+
+			document.querySelector('#Total').innerHTML = '$' + total.toFixed(2);
+			//State the value with '$'string and 2nd decimal in the 'Total' element.
+
+
+	    }
+		calc_btn.addEventListener("click", calculate);
+		//Add eventListener(users)
+		//execute the function:calculate when the click is clicked
+	
+    </script>
+</body>
+</html>
